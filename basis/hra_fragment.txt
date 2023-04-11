@@ -1,0 +1,91 @@
+
+    /*
+    * Hra "Hadani cisla" Dva hraci Jeden hrac si "mysli" cislo ze zadaneho
+    * intervalu 1-100 Druhy hrac hada cislo - dava tipy Prvni odpovida ok / uber /
+    * pridej Prubezne se pocita pocet tipu Hra konci, v pripade, za druhy hrac
+    * uhadne
+    *
+    * Realizace hry 2 hraci - uzival pocitace / pocitac uzivatel hada uzivatel
+    * mysli cislo
+    *
+    * Komunikace s uzivatelem formou menu Cleneni kodu do metod
+    *
+    */
+    private static final Scanner sc = new Scanner(System.in);
+    private static int horniMez = 100;
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        boolean konecProgramu = false;
+        while (!konecProgramu) {
+            vypisMenu();
+            int volba = nactiVolbu();
+            switch (volba) {
+                case 0:
+                    konecProgramu = true;
+                    break;
+                case 1:
+                    hratHruHracHadaProgramMysli();
+                    break;
+                case 2:
+                    hratHruHracMysliCisloProgramHada();
+                    break;
+                case 3:
+                    zmenaNastaveni();
+                    break;
+                default:
+                    System.out.println("Chybne zadana volba");
+            }
+        }
+        System.out.println("Koncim ...");
+    }
+
+    private static void vypisMenu() {
+        System.out.println("");
+        System.out.println("Hra hadani cisla");
+        System.out.println("1. Budu hadat");
+        System.out.println("2. Budu si myslet cislo, pocitac at hada");
+        System.out.println("3. Nastaveni");
+        System.out.println("0. Konec programu");
+    }
+
+    private static int nactiVolbu() {
+        System.out.print("Zadej volbu: ");
+        int volba = sc.nextInt();
+        return volba;
+    }
+
+    private static void hratHruHracHadaProgramMysli() {
+        System.out.println("");
+        System.out.println("Myslim si cislo, budes hadat");
+        System.out.format("Cislo je iv intervalu od 1 do %d%n", horniMez);
+        int mysleneCislo = (int) (Math.random() * horniMez) + 1; // 1 .. 100
+        int pocetTipu = 0;
+        int tip;
+        do {
+            System.out.print("Zadej tip: ");
+            tip = sc.nextInt();
+            pocetTipu++;
+            if (mysleneCislo < tip) 
+                System.out.println("Uber");
+            else if (mysleneCislo > tip) 
+                System.out.println("Pridej");
+            else
+                System.out.println("Ok, uhadl jsi je to " + mysleneCislo);
+        } while (tip != mysleneCislo);
+        System.out.println("Potreboval jsi " + pocetTipu + " pokusu");
+    }
+
+    private static void hratHruHracMysliCisloProgramHada() {
+        System.out.println("");
+        System.out.println("Mysli si cislo, budu hadat");
+        // realizace druhe varianty hry
+    }
+
+    private static void zmenaNastaveni() {
+        // vypis aktualni horni meze
+        // nacist novou hodnotu
+        // v pripade platneho zadani (od 10 do 1000000) pouzit
+    }
